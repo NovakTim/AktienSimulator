@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Main.aspx.cs" Inherits="AktienSimulator.Main" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="AktienSimulator.Default" %>
 
 <!DOCTYPE html>
 
@@ -12,14 +12,15 @@
         <p>
             Registrieren:</p>
         <p>
-            Nickname:&nbsp;&nbsp;&nbsp;&nbsp;
+            Nickname:&nbsp;&nbsp;&nbsp;
             <asp:TextBox ID="textNickname" runat="server"></asp:TextBox>
         </p>
         <p>
-            Passwort:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Passwort:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <asp:TextBox ID="textPassword" runat="server"></asp:TextBox>
         </p>
         <asp:Button ID="btnRegistrieren" runat="server" OnClick="btnRegistrieren_Click" Text="Registrieren" />
+        <asp:Button ID="btnLogin" runat="server" OnClick="btnLogin_Click" Text="Login" />
         <asp:Button ID="btnSave" runat="server" OnClick="btnSave_Click" Text="Speichern" />
     </form>
 </body>

@@ -24,7 +24,7 @@ namespace AktienSimulator
 
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
-            Server.Transfer("Main.aspx", true);
+            
         }
 
         protected void Application_AuthenticateRequest(object sender, EventArgs e)
@@ -34,7 +34,7 @@ namespace AktienSimulator
 
         protected void Application_Error(object sender, EventArgs e)
         {
-
+            
         }
 
         protected void Session_End(object sender, EventArgs e)
