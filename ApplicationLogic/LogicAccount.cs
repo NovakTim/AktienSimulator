@@ -1,11 +1,14 @@
 ﻿using Contracts;
 using Model;
+using Model.AktienSimulatorDataSetTableAdapters;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.OleDb;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace ApplicationLogic
 {
@@ -13,36 +16,39 @@ namespace ApplicationLogic
     {
         public static ErrorCodes.Register RegisterAccount(string nickname, string password)
         {
-            var row = Database.DataSet.Tables["Account"].NewRow();
-            row["Nickname"] = nickname;
-            row["Passwort"] = password;
             try
             {
-                Database.DataSet.Tables["Account"].Rows.Add(row);
+                AccountTableAdapter accountAdapter = new AccountTableAdapter();
+                accountAdapter.Insert(nickname, password, 0m);
                 return ErrorCodes.Register.NoError;
             }
-            catch (ConstraintException e)
+            catch (OleDbException)
             {
                 return ErrorCodes.Register.NameAlreadyTaken;
             }
         }
 
-        public static ErrorCodes.Login Login(string nickname, string password)
+        public static AktienSimulatorDataSet.AccountRow LogIn(string nickname, string password, ref ErrorCodes.Login errorcode)
         {
-            var accounts = Database.DataSet.Tables["Account"];
-            var result = from acc in accounts.AsEnumerable()
+            var result = from acc in Database.DataSet.Account.AsEnumerable()
                          where acc.Field<string>("Nickname") == nickname
                          select acc;
 
             var account = result.FirstOrDefault();
 
             if (account == null)
-                return ErrorCodes.Login.NicknameNotFound;
-
+            {
+                errorcode = ErrorCodes.Login.NicknameNotFound;
+                return null;
+            }
             if (account.Field<string>("Passwort") != password)
-                return ErrorCodes.Login.WrongPassword;
+            {
+                errorcode = ErrorCodes.Login.WrongPassword;
+                return null;
+            }
 
-            return ErrorCodes.Login.NoError;
+            errorcode = ErrorCodes.Login.NoError;
+            return account;
         }
     }
 }

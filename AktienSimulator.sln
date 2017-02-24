@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AktienSimulator", "AktienSimulator\AktienSimulator.csproj", "{C701B38B-EA66-431E-8621-6E86DAA570BA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApplicationGUI", "AktienSimulator\ApplicationGUI.csproj", "{C701B38B-EA66-431E-8621-6E86DAA570BA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{B66ACFEB-8F97-4485-A94A-9B30BE325CAB}"
 EndProject

@@ -20,5 +20,17 @@ namespace Contracts
             NicknameNotFound = 2000,
             WrongPassword = 3000
         }
+
+        public enum BuyAktie
+        {
+            NoError = 1000,
+            NotEnoughMoney = 2000
+        }
+
+        public enum SellAktie
+        {
+            NoError = 1000,
+            NotEnoughAmount = 2000
+        }
     }
 }
