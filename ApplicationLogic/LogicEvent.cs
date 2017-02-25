@@ -7,8 +7,11 @@ using System.Threading.Tasks;
 
 namespace ApplicationLogic
 {
-    public static class LogicGame
+    public static class LogicEvent
     {
+        public static void ChangeEvent(AktienSimulatorDataSet.AktieRow aktie)
+        {
 
+        }
     }
 }
