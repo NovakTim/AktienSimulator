@@ -58,6 +58,7 @@ namespace AktienSimulator
             }
 
             lblAccount.DataBind();
+            GridView1.DataBind();
         }
 
         protected void btnTest_Click(object sender, EventArgs e)
