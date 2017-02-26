@@ -11,7 +11,7 @@ namespace ApplicationLogic
 {
     public static class LogicAktie
     {
-        public const int CHANGE_EVENT_CHANCE = 10f;
+        public const int CHANGE_EVENT_CHANCE = 10;
 
         public static ErrorCodes.BuyAktie BuyAktie(AktienSimulatorDataSet.AccountRow account, EnumerableRowCollection<AktienSimulatorDataSet.DepotRow> depots, AktienSimulatorDataSet.AktieRow aktie, int anzahl)
         {
@@ -59,7 +59,7 @@ namespace ApplicationLogic
                 int i = random.Next(1, 100);
                 if(i <= CHANGE_EVENT_CHANCE)
                 {
-                    LogicEvent.
+                    //LogicEvent.
                 }
             }
         }
