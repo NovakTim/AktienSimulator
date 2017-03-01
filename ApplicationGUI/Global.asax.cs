@@ -1,4 +1,5 @@
-﻿using Model;
+﻿using ApplicationLogic;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace AktienSimulator
         protected void Application_Start(object sender, EventArgs e)
         {
             Database.Initialize();
-            Database.CacheDataSetFull();
+            Database.CacheRelevantTables();
         }
 
         protected void Session_Start(object sender, EventArgs e)

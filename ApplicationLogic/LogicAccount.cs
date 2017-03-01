@@ -30,24 +30,13 @@ namespace ApplicationLogic
 
         public static AktienSimulatorDataSet.AccountRow LogIn(string nickname, string password, ref ErrorCodes.Login errorcode)
         {
-            var result = from acc in Database.DataSet.Account.AsEnumerable()
-                         where acc.Field<string>("Nickname") == nickname
-                         select acc;
+            var account = Database.CheckLogIn(nickname, password, ref errorcode);
 
-            var account = result.FirstOrDefault();
-
-            if (account == null)
+            if(errorcode == ErrorCodes.Login.NoError)
             {
-                errorcode = ErrorCodes.Login.NicknameNotFound;
-                return null;
-            }
-            if (account.Field<string>("Passwort") != password)
-            {
-                errorcode = ErrorCodes.Login.WrongPassword;
-                return null;
+                Database.FillDepots(nickname);
             }
 
-            errorcode = ErrorCodes.Login.NoError;
             return account;
         }
     }

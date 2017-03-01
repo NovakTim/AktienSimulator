@@ -46,7 +46,9 @@
     <Compile Include="LogicAccount.cs" />
     <Compile Include="LogicAktie.cs" />
     <Compile Include="LogicDepot.cs" />
+    <Compile Include="LogicDividende.cs" />
     <Compile Include="LogicEvent.cs" />
+    <Compile Include="LogicKredit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

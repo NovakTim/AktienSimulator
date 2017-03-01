@@ -26,8 +26,6 @@ namespace Model {
         
         private AccountDataTable tableAccount;
         
-        private AccountKreditDataTable tableAccountKredit;
-        
         private AktieDataTable tableAktie;
         
         private DepotDataTable tableDepot;
@@ -36,15 +34,13 @@ namespace Model {
         
         private KreditDataTable tableKredit;
         
-        private global::System.Data.DataRelation relationAccountAccountKredit;
-        
-        private global::System.Data.DataRelation relationKreditAccountKredit;
-        
         private global::System.Data.DataRelation relationEventAktie;
         
         private global::System.Data.DataRelation relationAccountDepot;
         
         private global::System.Data.DataRelation relationAktieDepot;
+        
+        private global::System.Data.DataRelation relationAccountKredit;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
@@ -76,9 +72,6 @@ namespace Model {
                 ds.ReadXmlSchema(new global::System.Xml.XmlTextReader(new global::System.IO.StringReader(strSchema)));
                 if ((ds.Tables["Account"] != null)) {
                     base.Tables.Add(new AccountDataTable(ds.Tables["Account"]));
-                }
-                if ((ds.Tables["AccountKredit"] != null)) {
-                    base.Tables.Add(new AccountKreditDataTable(ds.Tables["AccountKredit"]));
                 }
                 if ((ds.Tables["Aktie"] != null)) {
                     base.Tables.Add(new AktieDataTable(ds.Tables["Aktie"]));
@@ -117,16 +110,6 @@ namespace Model {
         public AccountDataTable Account {
             get {
                 return this.tableAccount;
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Browsable(false)]
-        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public AccountKreditDataTable AccountKredit {
-            get {
-                return this.tableAccountKredit;
             }
         }
         
@@ -240,9 +223,6 @@ namespace Model {
                 if ((ds.Tables["Account"] != null)) {
                     base.Tables.Add(new AccountDataTable(ds.Tables["Account"]));
                 }
-                if ((ds.Tables["AccountKredit"] != null)) {
-                    base.Tables.Add(new AccountKreditDataTable(ds.Tables["AccountKredit"]));
-                }
                 if ((ds.Tables["Aktie"] != null)) {
                     base.Tables.Add(new AktieDataTable(ds.Tables["Aktie"]));
                 }
@@ -294,12 +274,6 @@ namespace Model {
                     this.tableAccount.InitVars();
                 }
             }
-            this.tableAccountKredit = ((AccountKreditDataTable)(base.Tables["AccountKredit"]));
-            if ((initTable == true)) {
-                if ((this.tableAccountKredit != null)) {
-                    this.tableAccountKredit.InitVars();
-                }
-            }
             this.tableAktie = ((AktieDataTable)(base.Tables["Aktie"]));
             if ((initTable == true)) {
                 if ((this.tableAktie != null)) {
@@ -324,11 +298,10 @@ namespace Model {
                     this.tableKredit.InitVars();
                 }
             }
-            this.relationAccountAccountKredit = this.Relations["AccountAccountKredit"];
-            this.relationKreditAccountKredit = this.Relations["KreditAccountKredit"];
             this.relationEventAktie = this.Relations["EventAktie"];
             this.relationAccountDepot = this.Relations["AccountDepot"];
             this.relationAktieDepot = this.Relations["AktieDepot"];
+            this.relationAccountKredit = this.Relations["AccountKredit"];
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -341,8 +314,6 @@ namespace Model {
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
             this.tableAccount = new AccountDataTable();
             base.Tables.Add(this.tableAccount);
-            this.tableAccountKredit = new AccountKreditDataTable();
-            base.Tables.Add(this.tableAccountKredit);
             this.tableAktie = new AktieDataTable();
             base.Tables.Add(this.tableAktie);
             this.tableDepot = new DepotDataTable();
@@ -351,14 +322,6 @@ namespace Model {
             base.Tables.Add(this.tableEvent);
             this.tableKredit = new KreditDataTable();
             base.Tables.Add(this.tableKredit);
-            this.relationAccountAccountKredit = new global::System.Data.DataRelation("AccountAccountKredit", new global::System.Data.DataColumn[] {
-                        this.tableAccount.NicknameColumn}, new global::System.Data.DataColumn[] {
-                        this.tableAccountKredit.AccountColumn}, false);
-            this.Relations.Add(this.relationAccountAccountKredit);
-            this.relationKreditAccountKredit = new global::System.Data.DataRelation("KreditAccountKredit", new global::System.Data.DataColumn[] {
-                        this.tableKredit.IDColumn}, new global::System.Data.DataColumn[] {
-                        this.tableAccountKredit.KreditColumn}, false);
-            this.Relations.Add(this.relationKreditAccountKredit);
             this.relationEventAktie = new global::System.Data.DataRelation("EventAktie", new global::System.Data.DataColumn[] {
                         this.tableEvent.IDColumn}, new global::System.Data.DataColumn[] {
                         this.tableAktie.EventColumn}, false);
@@ -371,17 +334,15 @@ namespace Model {
                         this.tableAktie.IDColumn}, new global::System.Data.DataColumn[] {
                         this.tableDepot.AktieColumn}, false);
             this.Relations.Add(this.relationAktieDepot);
+            this.relationAccountKredit = new global::System.Data.DataRelation("AccountKredit", new global::System.Data.DataColumn[] {
+                        this.tableAccount.NicknameColumn}, new global::System.Data.DataColumn[] {
+                        this.tableKredit.AccountColumn}, false);
+            this.Relations.Add(this.relationAccountKredit);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private bool ShouldSerializeAccount() {
-            return false;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        private bool ShouldSerializeAccountKredit() {
             return false;
         }
         
@@ -466,9 +427,6 @@ namespace Model {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         public delegate void AccountRowChangeEventHandler(object sender, AccountRowChangeEvent e);
-        
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public delegate void AccountKreditRowChangeEventHandler(object sender, AccountKreditRowChangeEvent e);
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         public delegate void AktieRowChangeEventHandler(object sender, AktieRowChangeEvent e);
@@ -730,302 +688,6 @@ namespace Model {
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
                 attribute2.FixedValue = "AccountDataTable";
-                type.Attributes.Add(attribute2);
-                type.Particle = sequence;
-                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
-                if (xs.Contains(dsSchema.TargetNamespace)) {
-                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
-                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
-                    try {
-                        global::System.Xml.Schema.XmlSchema schema = null;
-                        dsSchema.Write(s1);
-                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
-                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
-                            s2.SetLength(0);
-                            schema.Write(s2);
-                            if ((s1.Length == s2.Length)) {
-                                s1.Position = 0;
-                                s2.Position = 0;
-                                for (; ((s1.Position != s1.Length) 
-                                            && (s1.ReadByte() == s2.ReadByte())); ) {
-                                    ;
-                                }
-                                if ((s1.Position == s1.Length)) {
-                                    return type;
-                                }
-                            }
-                        }
-                    }
-                    finally {
-                        if ((s1 != null)) {
-                            s1.Close();
-                        }
-                        if ((s2 != null)) {
-                            s2.Close();
-                        }
-                    }
-                }
-                xs.Add(dsSchema);
-                return type;
-            }
-        }
-        
-        /// <summary>
-        ///Represents the strongly named DataTable class.
-        ///</summary>
-        [global::System.Serializable()]
-        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class AccountKreditDataTable : global::System.Data.TypedTableBase<AccountKreditRow> {
-            
-            private global::System.Data.DataColumn columnID;
-            
-            private global::System.Data.DataColumn columnAccount;
-            
-            private global::System.Data.DataColumn columnKredit;
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public AccountKreditDataTable() {
-                this.TableName = "AccountKredit";
-                this.BeginInit();
-                this.InitClass();
-                this.EndInit();
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            internal AccountKreditDataTable(global::System.Data.DataTable table) {
-                this.TableName = table.TableName;
-                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
-                    this.CaseSensitive = table.CaseSensitive;
-                }
-                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
-                    this.Locale = table.Locale;
-                }
-                if ((table.Namespace != table.DataSet.Namespace)) {
-                    this.Namespace = table.Namespace;
-                }
-                this.Prefix = table.Prefix;
-                this.MinimumCapacity = table.MinimumCapacity;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected AccountKreditDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
-                    base(info, context) {
-                this.InitVars();
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn IDColumn {
-                get {
-                    return this.columnID;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn AccountColumn {
-                get {
-                    return this.columnAccount;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn KreditColumn {
-                get {
-                    return this.columnKredit;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            [global::System.ComponentModel.Browsable(false)]
-            public int Count {
-                get {
-                    return this.Rows.Count;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public AccountKreditRow this[int index] {
-                get {
-                    return ((AccountKreditRow)(this.Rows[index]));
-                }
-            }
-            
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event AccountKreditRowChangeEventHandler AccountKreditRowChanging;
-            
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event AccountKreditRowChangeEventHandler AccountKreditRowChanged;
-            
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event AccountKreditRowChangeEventHandler AccountKreditRowDeleting;
-            
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event AccountKreditRowChangeEventHandler AccountKreditRowDeleted;
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void AddAccountKreditRow(AccountKreditRow row) {
-                this.Rows.Add(row);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public AccountKreditRow AddAccountKreditRow(AccountRow parentAccountRowByAccountAccountKredit, KreditRow parentKreditRowByKreditAccountKredit) {
-                AccountKreditRow rowAccountKreditRow = ((AccountKreditRow)(this.NewRow()));
-                object[] columnValuesArray = new object[] {
-                        null,
-                        null,
-                        null};
-                if ((parentAccountRowByAccountAccountKredit != null)) {
-                    columnValuesArray[1] = parentAccountRowByAccountAccountKredit[0];
-                }
-                if ((parentKreditRowByKreditAccountKredit != null)) {
-                    columnValuesArray[2] = parentKreditRowByKreditAccountKredit[0];
-                }
-                rowAccountKreditRow.ItemArray = columnValuesArray;
-                this.Rows.Add(rowAccountKreditRow);
-                return rowAccountKreditRow;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public AccountKreditRow FindByID(int ID) {
-                return ((AccountKreditRow)(this.Rows.Find(new object[] {
-                            ID})));
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public override global::System.Data.DataTable Clone() {
-                AccountKreditDataTable cln = ((AccountKreditDataTable)(base.Clone()));
-                cln.InitVars();
-                return cln;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected override global::System.Data.DataTable CreateInstance() {
-                return new AccountKreditDataTable();
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            internal void InitVars() {
-                this.columnID = base.Columns["ID"];
-                this.columnAccount = base.Columns["Account"];
-                this.columnKredit = base.Columns["Kredit"];
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            private void InitClass() {
-                this.columnID = new global::System.Data.DataColumn("ID", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnID);
-                this.columnAccount = new global::System.Data.DataColumn("Account", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnAccount);
-                this.columnKredit = new global::System.Data.DataColumn("Kredit", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnKredit);
-                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
-                                this.columnID}, true));
-                this.columnID.AutoIncrement = true;
-                this.columnID.AutoIncrementSeed = -1;
-                this.columnID.AutoIncrementStep = -1;
-                this.columnID.AllowDBNull = false;
-                this.columnID.Unique = true;
-                this.columnAccount.MaxLength = 255;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public AccountKreditRow NewAccountKreditRow() {
-                return ((AccountKreditRow)(this.NewRow()));
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new AccountKreditRow(builder);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected override global::System.Type GetRowType() {
-                return typeof(AccountKreditRow);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
-                base.OnRowChanged(e);
-                if ((this.AccountKreditRowChanged != null)) {
-                    this.AccountKreditRowChanged(this, new AccountKreditRowChangeEvent(((AccountKreditRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
-                base.OnRowChanging(e);
-                if ((this.AccountKreditRowChanging != null)) {
-                    this.AccountKreditRowChanging(this, new AccountKreditRowChangeEvent(((AccountKreditRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
-                base.OnRowDeleted(e);
-                if ((this.AccountKreditRowDeleted != null)) {
-                    this.AccountKreditRowDeleted(this, new AccountKreditRowChangeEvent(((AccountKreditRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
-                base.OnRowDeleting(e);
-                if ((this.AccountKreditRowDeleting != null)) {
-                    this.AccountKreditRowDeleting(this, new AccountKreditRowChangeEvent(((AccountKreditRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void RemoveAccountKreditRow(AccountKreditRow row) {
-                this.Rows.Remove(row);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
-                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
-                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                AktienSimulatorDataSet ds = new AktienSimulatorDataSet();
-                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
-                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
-                any1.MinOccurs = new decimal(0);
-                any1.MaxOccurs = decimal.MaxValue;
-                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
-                sequence.Items.Add(any1);
-                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
-                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
-                any2.MinOccurs = new decimal(1);
-                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
-                sequence.Items.Add(any2);
-                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
-                attribute1.Name = "namespace";
-                attribute1.FixedValue = ds.Namespace;
-                type.Attributes.Add(attribute1);
-                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
-                attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "AccountKreditDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -1982,6 +1644,8 @@ namespace Model {
             
             private global::System.Data.DataColumn columnID;
             
+            private global::System.Data.DataColumn columnAccount;
+            
             private global::System.Data.DataColumn columnHöhe;
             
             private global::System.Data.DataColumn columnRest;
@@ -2024,6 +1688,14 @@ namespace Model {
             public global::System.Data.DataColumn IDColumn {
                 get {
                     return this.columnID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn AccountColumn {
+                get {
+                    return this.columnAccount;
                 }
             }
             
@@ -2080,12 +1752,16 @@ namespace Model {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public KreditRow AddKreditRow(decimal Höhe, decimal Rest) {
+            public KreditRow AddKreditRow(AccountRow parentAccountRowByAccountKredit, decimal Höhe, decimal Rest) {
                 KreditRow rowKreditRow = ((KreditRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
+                        null,
                         Höhe,
                         Rest};
+                if ((parentAccountRowByAccountKredit != null)) {
+                    columnValuesArray[1] = parentAccountRowByAccountKredit[0];
+                }
                 rowKreditRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowKreditRow);
                 return rowKreditRow;
@@ -2116,6 +1792,7 @@ namespace Model {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             internal void InitVars() {
                 this.columnID = base.Columns["ID"];
+                this.columnAccount = base.Columns["Account"];
                 this.columnHöhe = base.Columns["Höhe"];
                 this.columnRest = base.Columns["Rest"];
             }
@@ -2125,6 +1802,8 @@ namespace Model {
             private void InitClass() {
                 this.columnID = new global::System.Data.DataColumn("ID", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnID);
+                this.columnAccount = new global::System.Data.DataColumn("Account", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAccount);
                 this.columnHöhe = new global::System.Data.DataColumn("Höhe", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnHöhe);
                 this.columnRest = new global::System.Data.DataColumn("Rest", typeof(decimal), null, global::System.Data.MappingType.Element);
@@ -2136,6 +1815,7 @@ namespace Model {
                 this.columnID.AutoIncrementStep = -1;
                 this.columnID.AllowDBNull = false;
                 this.columnID.Unique = true;
+                this.columnAccount.MaxLength = 255;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2345,17 +2025,6 @@ namespace Model {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public AccountKreditRow[] GetAccountKreditRows() {
-                if ((this.Table.ChildRelations["AccountAccountKredit"] == null)) {
-                    return new AccountKreditRow[0];
-                }
-                else {
-                    return ((AccountKreditRow[])(base.GetChildRows(this.Table.ChildRelations["AccountAccountKredit"])));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public DepotRow[] GetDepotRows() {
                 if ((this.Table.ChildRelations["AccountDepot"] == null)) {
                     return new DepotRow[0];
@@ -2364,109 +2033,16 @@ namespace Model {
                     return ((DepotRow[])(base.GetChildRows(this.Table.ChildRelations["AccountDepot"])));
                 }
             }
-        }
-        
-        /// <summary>
-        ///Represents strongly named DataRow class.
-        ///</summary>
-        public partial class AccountKreditRow : global::System.Data.DataRow {
-            
-            private AccountKreditDataTable tableAccountKredit;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            internal AccountKreditRow(global::System.Data.DataRowBuilder rb) : 
-                    base(rb) {
-                this.tableAccountKredit = ((AccountKreditDataTable)(this.Table));
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public int ID {
-                get {
-                    return ((int)(this[this.tableAccountKredit.IDColumn]));
+            public KreditRow[] GetKreditRows() {
+                if ((this.Table.ChildRelations["AccountKredit"] == null)) {
+                    return new KreditRow[0];
                 }
-                set {
-                    this[this.tableAccountKredit.IDColumn] = value;
+                else {
+                    return ((KreditRow[])(base.GetChildRows(this.Table.ChildRelations["AccountKredit"])));
                 }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string Account {
-                get {
-                    try {
-                        return ((string)(this[this.tableAccountKredit.AccountColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("Der Wert für Spalte Account in Tabelle AccountKredit ist DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableAccountKredit.AccountColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public int Kredit {
-                get {
-                    try {
-                        return ((int)(this[this.tableAccountKredit.KreditColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("Der Wert für Spalte Kredit in Tabelle AccountKredit ist DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableAccountKredit.KreditColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public AccountRow AccountRow {
-                get {
-                    return ((AccountRow)(this.GetParentRow(this.Table.ParentRelations["AccountAccountKredit"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["AccountAccountKredit"]);
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public KreditRow KreditRow {
-                get {
-                    return ((KreditRow)(this.GetParentRow(this.Table.ParentRelations["KreditAccountKredit"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["KreditAccountKredit"]);
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsAccountNull() {
-                return this.IsNull(this.tableAccountKredit.AccountColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetAccountNull() {
-                this[this.tableAccountKredit.AccountColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsKreditNull() {
-                return this.IsNull(this.tableAccountKredit.KreditColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetKreditNull() {
-                this[this.tableAccountKredit.KreditColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -2854,6 +2430,22 @@ namespace Model {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Account {
+                get {
+                    try {
+                        return ((string)(this[this.tableKredit.AccountColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("Der Wert für Spalte Account in Tabelle Kredit ist DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableKredit.AccountColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public decimal Höhe {
                 get {
                     try {
@@ -2886,6 +2478,29 @@ namespace Model {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public AccountRow AccountRow {
+                get {
+                    return ((AccountRow)(this.GetParentRow(this.Table.ParentRelations["AccountKredit"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["AccountKredit"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsAccountNull() {
+                return this.IsNull(this.tableKredit.AccountColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetAccountNull() {
+                this[this.tableKredit.AccountColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsHöheNull() {
                 return this.IsNull(this.tableKredit.HöheColumn);
             }
@@ -2906,17 +2521,6 @@ namespace Model {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetRestNull() {
                 this[this.tableKredit.RestColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public AccountKreditRow[] GetAccountKreditRows() {
-                if ((this.Table.ChildRelations["KreditAccountKredit"] == null)) {
-                    return new AccountKreditRow[0];
-                }
-                else {
-                    return ((AccountKreditRow[])(base.GetChildRows(this.Table.ChildRelations["KreditAccountKredit"])));
-                }
             }
         }
         
@@ -2940,40 +2544,6 @@ namespace Model {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public AccountRow Row {
-                get {
-                    return this.eventRow;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataRowAction Action {
-                get {
-                    return this.eventAction;
-                }
-            }
-        }
-        
-        /// <summary>
-        ///Row event argument class
-        ///</summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public class AccountKreditRowChangeEvent : global::System.EventArgs {
-            
-            private AccountKreditRow eventRow;
-            
-            private global::System.Data.DataRowAction eventAction;
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public AccountKreditRowChangeEvent(AccountKreditRow row, global::System.Data.DataRowAction action) {
-                this.eventRow = row;
-                this.eventAction = action;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public AccountKreditRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -3262,14 +2832,14 @@ namespace Model.AktienSimulatorDataSetTableAdapters {
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Passwort", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Passwort", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Passwort", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Passwort", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Bilanz", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Bilanz", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Bilanz", global::System.Data.OleDb.OleDbType.Numeric, 0, global::System.Data.ParameterDirection.Input, ((byte)(18)), ((byte)(0)), "Bilanz", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Bilanz", global::System.Data.OleDb.OleDbType.Numeric, 0, global::System.Data.ParameterDirection.Input, ((byte)(18)), ((byte)(2)), "Bilanz", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.InsertCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
             this._adapter.InsertCommand.CommandText = "INSERT INTO `Account` (`Nickname`, `Passwort`, `Bilanz`) VALUES (?, ?, ?)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Nickname", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Nickname", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Passwort", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Passwort", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Bilanz", global::System.Data.OleDb.OleDbType.Numeric, 0, global::System.Data.ParameterDirection.Input, ((byte)(18)), ((byte)(0)), "Bilanz", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Bilanz", global::System.Data.OleDb.OleDbType.Numeric, 0, global::System.Data.ParameterDirection.Input, ((byte)(18)), ((byte)(2)), "Bilanz", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
             this._adapter.UpdateCommand.CommandText = "UPDATE `Account` SET `Nickname` = ?, `Passwort` = ?, `Bilanz` = ? WHERE ((`Nickna" +
@@ -3278,12 +2848,12 @@ namespace Model.AktienSimulatorDataSetTableAdapters {
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Nickname", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Nickname", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Passwort", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Passwort", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Bilanz", global::System.Data.OleDb.OleDbType.Numeric, 0, global::System.Data.ParameterDirection.Input, ((byte)(18)), ((byte)(0)), "Bilanz", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Bilanz", global::System.Data.OleDb.OleDbType.Numeric, 0, global::System.Data.ParameterDirection.Input, ((byte)(18)), ((byte)(2)), "Bilanz", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Nickname", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Nickname", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Passwort", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Passwort", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Passwort", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Passwort", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Bilanz", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Bilanz", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Bilanz", global::System.Data.OleDb.OleDbType.Numeric, 0, global::System.Data.ParameterDirection.Input, ((byte)(18)), ((byte)(0)), "Bilanz", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Bilanz", global::System.Data.OleDb.OleDbType.Numeric, 0, global::System.Data.ParameterDirection.Input, ((byte)(18)), ((byte)(2)), "Bilanz", global::System.Data.DataRowVersion.Original, false, null));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3505,354 +3075,6 @@ namespace Model.AktienSimulatorDataSetTableAdapters {
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
         public virtual int Update(string Passwort, global::System.Nullable<decimal> Bilanz, string Original_Nickname, string Original_Passwort, global::System.Nullable<decimal> Original_Bilanz) {
             return this.Update(Original_Nickname, Passwort, Bilanz, Original_Nickname, Original_Passwort, Original_Bilanz);
-        }
-    }
-    
-    /// <summary>
-    ///Represents the connection and commands used to retrieve and save data.
-    ///</summary>
-    [global::System.ComponentModel.DesignerCategoryAttribute("code")]
-    [global::System.ComponentModel.ToolboxItem(true)]
-    [global::System.ComponentModel.DataObjectAttribute(true)]
-    [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
-        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
-    [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-    public partial class AccountKreditTableAdapter : global::System.ComponentModel.Component {
-        
-        private global::System.Data.OleDb.OleDbDataAdapter _adapter;
-        
-        private global::System.Data.OleDb.OleDbConnection _connection;
-        
-        private global::System.Data.OleDb.OleDbTransaction _transaction;
-        
-        private global::System.Data.OleDb.OleDbCommand[] _commandCollection;
-        
-        private bool _clearBeforeFill;
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public AccountKreditTableAdapter() {
-            this.ClearBeforeFill = true;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        protected internal global::System.Data.OleDb.OleDbDataAdapter Adapter {
-            get {
-                if ((this._adapter == null)) {
-                    this.InitAdapter();
-                }
-                return this._adapter;
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        internal global::System.Data.OleDb.OleDbConnection Connection {
-            get {
-                if ((this._connection == null)) {
-                    this.InitConnection();
-                }
-                return this._connection;
-            }
-            set {
-                this._connection = value;
-                if ((this.Adapter.InsertCommand != null)) {
-                    this.Adapter.InsertCommand.Connection = value;
-                }
-                if ((this.Adapter.DeleteCommand != null)) {
-                    this.Adapter.DeleteCommand.Connection = value;
-                }
-                if ((this.Adapter.UpdateCommand != null)) {
-                    this.Adapter.UpdateCommand.Connection = value;
-                }
-                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
-                    if ((this.CommandCollection[i] != null)) {
-                        ((global::System.Data.OleDb.OleDbCommand)(this.CommandCollection[i])).Connection = value;
-                    }
-                }
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        internal global::System.Data.OleDb.OleDbTransaction Transaction {
-            get {
-                return this._transaction;
-            }
-            set {
-                this._transaction = value;
-                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
-                    this.CommandCollection[i].Transaction = this._transaction;
-                }
-                if (((this.Adapter != null) 
-                            && (this.Adapter.DeleteCommand != null))) {
-                    this.Adapter.DeleteCommand.Transaction = this._transaction;
-                }
-                if (((this.Adapter != null) 
-                            && (this.Adapter.InsertCommand != null))) {
-                    this.Adapter.InsertCommand.Transaction = this._transaction;
-                }
-                if (((this.Adapter != null) 
-                            && (this.Adapter.UpdateCommand != null))) {
-                    this.Adapter.UpdateCommand.Transaction = this._transaction;
-                }
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        protected global::System.Data.OleDb.OleDbCommand[] CommandCollection {
-            get {
-                if ((this._commandCollection == null)) {
-                    this.InitCommandCollection();
-                }
-                return this._commandCollection;
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public bool ClearBeforeFill {
-            get {
-                return this._clearBeforeFill;
-            }
-            set {
-                this._clearBeforeFill = value;
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        private void InitAdapter() {
-            this._adapter = new global::System.Data.OleDb.OleDbDataAdapter();
-            global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
-            tableMapping.SourceTable = "Table";
-            tableMapping.DataSetTable = "AccountKredit";
-            tableMapping.ColumnMappings.Add("ID", "ID");
-            tableMapping.ColumnMappings.Add("Account", "Account");
-            tableMapping.ColumnMappings.Add("Kredit", "Kredit");
-            this._adapter.TableMappings.Add(tableMapping);
-            this._adapter.DeleteCommand = new global::System.Data.OleDb.OleDbCommand();
-            this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = "DELETE FROM `AccountKredit` WHERE ((`ID` = ?) AND ((? = 1 AND `Account` IS NULL) " +
-                "OR (`Account` = ?)) AND ((? = 1 AND `Kredit` IS NULL) OR (`Kredit` = ?)))";
-            this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Account", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Account", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Account", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Account", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Kredit", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Kredit", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Kredit", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Kredit", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.InsertCommand = new global::System.Data.OleDb.OleDbCommand();
-            this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO `AccountKredit` (`Account`, `Kredit`) VALUES (?, ?)";
-            this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Account", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Account", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Kredit", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Kredit", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand = new global::System.Data.OleDb.OleDbCommand();
-            this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = "UPDATE `AccountKredit` SET `Account` = ?, `Kredit` = ? WHERE ((`ID` = ?) AND ((? " +
-                "= 1 AND `Account` IS NULL) OR (`Account` = ?)) AND ((? = 1 AND `Kredit` IS NULL)" +
-                " OR (`Kredit` = ?)))";
-            this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Account", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Account", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Kredit", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Kredit", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Account", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Account", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Account", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Account", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Kredit", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Kredit", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Kredit", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Kredit", global::System.Data.DataRowVersion.Original, false, null));
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        private void InitConnection() {
-            this._connection = new global::System.Data.OleDb.OleDbConnection();
-            this._connection.ConnectionString = global::Model.Properties.Settings.Default.AktienSimulatorConnectionString;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        private void InitCommandCollection() {
-            this._commandCollection = new global::System.Data.OleDb.OleDbCommand[1];
-            this._commandCollection[0] = new global::System.Data.OleDb.OleDbCommand();
-            this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT ID, Account, Kredit FROM AccountKredit";
-            this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(AktienSimulatorDataSet.AccountKreditDataTable dataTable) {
-            this.Adapter.SelectCommand = this.CommandCollection[0];
-            if ((this.ClearBeforeFill == true)) {
-                dataTable.Clear();
-            }
-            int returnValue = this.Adapter.Fill(dataTable);
-            return returnValue;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual AktienSimulatorDataSet.AccountKreditDataTable GetData() {
-            this.Adapter.SelectCommand = this.CommandCollection[0];
-            AktienSimulatorDataSet.AccountKreditDataTable dataTable = new AktienSimulatorDataSet.AccountKreditDataTable();
-            this.Adapter.Fill(dataTable);
-            return dataTable;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(AktienSimulatorDataSet.AccountKreditDataTable dataTable) {
-            return this.Adapter.Update(dataTable);
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(AktienSimulatorDataSet dataSet) {
-            return this.Adapter.Update(dataSet, "AccountKredit");
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(global::System.Data.DataRow dataRow) {
-            return this.Adapter.Update(new global::System.Data.DataRow[] {
-                        dataRow});
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(global::System.Data.DataRow[] dataRows) {
-            return this.Adapter.Update(dataRows);
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_ID, string Original_Account, global::System.Nullable<int> Original_Kredit) {
-            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_ID));
-            if ((Original_Account == null)) {
-                this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[2].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[2].Value = ((string)(Original_Account));
-            }
-            if ((Original_Kredit.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[4].Value = ((int)(Original_Kredit.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[4].Value = global::System.DBNull.Value;
-            }
-            global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
-            if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
-                        != global::System.Data.ConnectionState.Open)) {
-                this.Adapter.DeleteCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.DeleteCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
-                    this.Adapter.DeleteCommand.Connection.Close();
-                }
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string Account, global::System.Nullable<int> Kredit) {
-            if ((Account == null)) {
-                this.Adapter.InsertCommand.Parameters[0].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[0].Value = ((string)(Account));
-            }
-            if ((Kredit.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[1].Value = ((int)(Kredit.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
-            }
-            global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
-            if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
-                        != global::System.Data.ConnectionState.Open)) {
-                this.Adapter.InsertCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.InsertCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
-                    this.Adapter.InsertCommand.Connection.Close();
-                }
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string Account, global::System.Nullable<int> Kredit, int Original_ID, string Original_Account, global::System.Nullable<int> Original_Kredit) {
-            if ((Account == null)) {
-                this.Adapter.UpdateCommand.Parameters[0].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[0].Value = ((string)(Account));
-            }
-            if ((Kredit.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(Kredit.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
-            }
-            this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(Original_ID));
-            if ((Original_Account == null)) {
-                this.Adapter.UpdateCommand.Parameters[3].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[3].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[4].Value = ((string)(Original_Account));
-            }
-            if ((Original_Kredit.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(Original_Kredit.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
-            }
-            global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
-            if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
-                        != global::System.Data.ConnectionState.Open)) {
-                this.Adapter.UpdateCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.UpdateCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
-                    this.Adapter.UpdateCommand.Connection.Close();
-                }
-            }
         }
     }
     
@@ -4760,13 +3982,13 @@ namespace Model.AktienSimulatorDataSetTableAdapters {
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Bezeichnung", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Bezeichnung", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Bezeichnung", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Bezeichnung", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_ProzentualeVeränderung", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ProzentualeVeränderung", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ProzentualeVeränderung", global::System.Data.OleDb.OleDbType.Numeric, 0, global::System.Data.ParameterDirection.Input, ((byte)(18)), ((byte)(0)), "ProzentualeVeränderung", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ProzentualeVeränderung", global::System.Data.OleDb.OleDbType.Numeric, 0, global::System.Data.ParameterDirection.Input, ((byte)(18)), ((byte)(2)), "ProzentualeVeränderung", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.InsertCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
             this._adapter.InsertCommand.CommandText = "INSERT INTO `Event` (`Bezeichnung`, `ProzentualeVeränderung`) VALUES (?, ?)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Bezeichnung", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Bezeichnung", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ProzentualeVeränderung", global::System.Data.OleDb.OleDbType.Numeric, 0, global::System.Data.ParameterDirection.Input, ((byte)(18)), ((byte)(0)), "ProzentualeVeränderung", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ProzentualeVeränderung", global::System.Data.OleDb.OleDbType.Numeric, 0, global::System.Data.ParameterDirection.Input, ((byte)(18)), ((byte)(2)), "ProzentualeVeränderung", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
             this._adapter.UpdateCommand.CommandText = "UPDATE `Event` SET `Bezeichnung` = ?, `ProzentualeVeränderung` = ? WHERE ((`ID` =" +
@@ -4774,12 +3996,12 @@ namespace Model.AktienSimulatorDataSetTableAdapters {
                 "ND `ProzentualeVeränderung` IS NULL) OR (`ProzentualeVeränderung` = ?)))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Bezeichnung", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Bezeichnung", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ProzentualeVeränderung", global::System.Data.OleDb.OleDbType.Numeric, 0, global::System.Data.ParameterDirection.Input, ((byte)(18)), ((byte)(0)), "ProzentualeVeränderung", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ProzentualeVeränderung", global::System.Data.OleDb.OleDbType.Numeric, 0, global::System.Data.ParameterDirection.Input, ((byte)(18)), ((byte)(2)), "ProzentualeVeränderung", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Bezeichnung", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Bezeichnung", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Bezeichnung", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Bezeichnung", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_ProzentualeVeränderung", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ProzentualeVeränderung", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ProzentualeVeränderung", global::System.Data.OleDb.OleDbType.Numeric, 0, global::System.Data.ParameterDirection.Input, ((byte)(18)), ((byte)(0)), "ProzentualeVeränderung", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ProzentualeVeränderung", global::System.Data.OleDb.OleDbType.Numeric, 0, global::System.Data.ParameterDirection.Input, ((byte)(18)), ((byte)(2)), "ProzentualeVeränderung", global::System.Data.DataRowVersion.Original, false, null));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -5096,33 +4318,42 @@ namespace Model.AktienSimulatorDataSetTableAdapters {
             tableMapping.SourceTable = "Table";
             tableMapping.DataSetTable = "Kredit";
             tableMapping.ColumnMappings.Add("ID", "ID");
+            tableMapping.ColumnMappings.Add("Account", "Account");
             tableMapping.ColumnMappings.Add("Höhe", "Höhe");
             tableMapping.ColumnMappings.Add("Rest", "Rest");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = "DELETE FROM `Kredit` WHERE ((`ID` = ?) AND ((? = 1 AND `Höhe` IS NULL) OR (`Höhe`" +
-                " = ?)) AND ((? = 1 AND `Rest` IS NULL) OR (`Rest` = ?)))";
+            this._adapter.DeleteCommand.CommandText = "DELETE FROM `Kredit` WHERE ((`ID` = ?) AND ((? = 1 AND `Account` IS NULL) OR (`Ac" +
+                "count` = ?)) AND ((? = 1 AND `Höhe` IS NULL) OR (`Höhe` = ?)) AND ((? = 1 AND `R" +
+                "est` IS NULL) OR (`Rest` = ?)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Account", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Account", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Account", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Account", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Höhe", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Höhe", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Höhe", global::System.Data.OleDb.OleDbType.Numeric, 0, global::System.Data.ParameterDirection.Input, ((byte)(18)), ((byte)(0)), "Höhe", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Rest", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Rest", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Rest", global::System.Data.OleDb.OleDbType.Numeric, 0, global::System.Data.ParameterDirection.Input, ((byte)(18)), ((byte)(0)), "Rest", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.InsertCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO `Kredit` (`Höhe`, `Rest`) VALUES (?, ?)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO `Kredit` (`Account`, `Höhe`, `Rest`) VALUES (?, ?, ?)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Account", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Account", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Höhe", global::System.Data.OleDb.OleDbType.Numeric, 0, global::System.Data.ParameterDirection.Input, ((byte)(18)), ((byte)(0)), "Höhe", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Rest", global::System.Data.OleDb.OleDbType.Numeric, 0, global::System.Data.ParameterDirection.Input, ((byte)(18)), ((byte)(0)), "Rest", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = "UPDATE `Kredit` SET `Höhe` = ?, `Rest` = ? WHERE ((`ID` = ?) AND ((? = 1 AND `Höh" +
-                "e` IS NULL) OR (`Höhe` = ?)) AND ((? = 1 AND `Rest` IS NULL) OR (`Rest` = ?)))";
+            this._adapter.UpdateCommand.CommandText = "UPDATE `Kredit` SET `Account` = ?, `Höhe` = ?, `Rest` = ? WHERE ((`ID` = ?) AND (" +
+                "(? = 1 AND `Account` IS NULL) OR (`Account` = ?)) AND ((? = 1 AND `Höhe` IS NULL" +
+                ") OR (`Höhe` = ?)) AND ((? = 1 AND `Rest` IS NULL) OR (`Rest` = ?)))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Account", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Account", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Höhe", global::System.Data.OleDb.OleDbType.Numeric, 0, global::System.Data.ParameterDirection.Input, ((byte)(18)), ((byte)(0)), "Höhe", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Rest", global::System.Data.OleDb.OleDbType.Numeric, 0, global::System.Data.ParameterDirection.Input, ((byte)(18)), ((byte)(0)), "Rest", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Account", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Account", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Account", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Account", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Höhe", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Höhe", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Höhe", global::System.Data.OleDb.OleDbType.Numeric, 0, global::System.Data.ParameterDirection.Input, ((byte)(18)), ((byte)(0)), "Höhe", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Rest", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Rest", global::System.Data.DataRowVersion.Original, true, null));
@@ -5142,7 +4373,7 @@ namespace Model.AktienSimulatorDataSetTableAdapters {
             this._commandCollection = new global::System.Data.OleDb.OleDbCommand[1];
             this._commandCollection[0] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT ID, Höhe, Rest FROM Kredit";
+            this._commandCollection[0].CommandText = "SELECT ID, Account, Höhe, Rest FROM Kredit";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -5203,23 +4434,31 @@ namespace Model.AktienSimulatorDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_ID, global::System.Nullable<decimal> Original_Höhe, global::System.Nullable<decimal> Original_Rest) {
+        public virtual int Delete(int Original_ID, string Original_Account, global::System.Nullable<decimal> Original_Höhe, global::System.Nullable<decimal> Original_Rest) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_ID));
-            if ((Original_Höhe.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[2].Value = ((decimal)(Original_Höhe.Value));
-            }
-            else {
+            if ((Original_Account == null)) {
                 this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(1));
                 this.Adapter.DeleteCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
-            if ((Original_Rest.HasValue == true)) {
+            else {
+                this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[2].Value = ((string)(Original_Account));
+            }
+            if ((Original_Höhe.HasValue == true)) {
                 this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[4].Value = ((decimal)(Original_Rest.Value));
+                this.Adapter.DeleteCommand.Parameters[4].Value = ((decimal)(Original_Höhe.Value));
             }
             else {
                 this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(1));
                 this.Adapter.DeleteCommand.Parameters[4].Value = global::System.DBNull.Value;
+            }
+            if ((Original_Rest.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[6].Value = ((decimal)(Original_Rest.Value));
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[6].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -5241,18 +4480,24 @@ namespace Model.AktienSimulatorDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(global::System.Nullable<decimal> Höhe, global::System.Nullable<decimal> Rest) {
-            if ((Höhe.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[0].Value = ((decimal)(Höhe.Value));
-            }
-            else {
+        public virtual int Insert(string Account, global::System.Nullable<decimal> Höhe, global::System.Nullable<decimal> Rest) {
+            if ((Account == null)) {
                 this.Adapter.InsertCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
-            if ((Rest.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[1].Value = ((decimal)(Rest.Value));
+            else {
+                this.Adapter.InsertCommand.Parameters[0].Value = ((string)(Account));
+            }
+            if ((Höhe.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[1].Value = ((decimal)(Höhe.Value));
             }
             else {
                 this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            if ((Rest.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[2].Value = ((decimal)(Rest.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -5274,35 +4519,49 @@ namespace Model.AktienSimulatorDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(global::System.Nullable<decimal> Höhe, global::System.Nullable<decimal> Rest, int Original_ID, global::System.Nullable<decimal> Original_Höhe, global::System.Nullable<decimal> Original_Rest) {
-            if ((Höhe.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[0].Value = ((decimal)(Höhe.Value));
-            }
-            else {
+        public virtual int Update(string Account, global::System.Nullable<decimal> Höhe, global::System.Nullable<decimal> Rest, int Original_ID, string Original_Account, global::System.Nullable<decimal> Original_Höhe, global::System.Nullable<decimal> Original_Rest) {
+            if ((Account == null)) {
                 this.Adapter.UpdateCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
-            if ((Rest.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[1].Value = ((decimal)(Rest.Value));
+            else {
+                this.Adapter.UpdateCommand.Parameters[0].Value = ((string)(Account));
+            }
+            if ((Höhe.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[1].Value = ((decimal)(Höhe.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(Original_ID));
-            if ((Original_Höhe.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[3].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[4].Value = ((decimal)(Original_Höhe.Value));
+            if ((Rest.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[2].Value = ((decimal)(Rest.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[3].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(Original_ID));
+            if ((Original_Account == null)) {
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[5].Value = ((string)(Original_Account));
+            }
+            if ((Original_Höhe.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[7].Value = ((decimal)(Original_Höhe.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[7].Value = global::System.DBNull.Value;
             }
             if ((Original_Rest.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((decimal)(Original_Rest.Value));
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[9].Value = ((decimal)(Original_Rest.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[9].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -5334,8 +4593,6 @@ namespace Model.AktienSimulatorDataSetTableAdapters {
         private UpdateOrderOption _updateOrder;
         
         private AccountTableAdapter _accountTableAdapter;
-        
-        private AccountKreditTableAdapter _accountKreditTableAdapter;
         
         private AktieTableAdapter _aktieTableAdapter;
         
@@ -5371,20 +4628,6 @@ namespace Model.AktienSimulatorDataSetTableAdapters {
             }
             set {
                 this._accountTableAdapter = value;
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        [global::System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso" +
-            "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3" +
-            "a", "System.Drawing.Design.UITypeEditor")]
-        public AccountKreditTableAdapter AccountKreditTableAdapter {
-            get {
-                return this._accountKreditTableAdapter;
-            }
-            set {
-                this._accountKreditTableAdapter = value;
             }
         }
         
@@ -5467,10 +4710,6 @@ namespace Model.AktienSimulatorDataSetTableAdapters {
                             && (this._accountTableAdapter.Connection != null))) {
                     return this._accountTableAdapter.Connection;
                 }
-                if (((this._accountKreditTableAdapter != null) 
-                            && (this._accountKreditTableAdapter.Connection != null))) {
-                    return this._accountKreditTableAdapter.Connection;
-                }
                 if (((this._aktieTableAdapter != null) 
                             && (this._aktieTableAdapter.Connection != null))) {
                     return this._aktieTableAdapter.Connection;
@@ -5501,9 +4740,6 @@ namespace Model.AktienSimulatorDataSetTableAdapters {
             get {
                 int count = 0;
                 if ((this._accountTableAdapter != null)) {
-                    count = (count + 1);
-                }
-                if ((this._accountKreditTableAdapter != null)) {
                     count = (count + 1);
                 }
                 if ((this._aktieTableAdapter != null)) {
@@ -5556,30 +4792,21 @@ namespace Model.AktienSimulatorDataSetTableAdapters {
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._kreditTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.Kredit.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._kreditTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._accountKreditTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.AccountKredit.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._accountKreditTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
             if ((this._depotTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.Depot.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
                     result = (result + this._depotTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._kreditTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.Kredit.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._kreditTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -5617,27 +4844,19 @@ namespace Model.AktienSimulatorDataSetTableAdapters {
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._kreditTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.Kredit.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._kreditTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._accountKreditTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.AccountKredit.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._accountKreditTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
             if ((this._depotTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.Depot.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
                     result = (result + this._depotTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._kreditTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.Kredit.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._kreditTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -5651,27 +4870,19 @@ namespace Model.AktienSimulatorDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private int UpdateDeletedRows(AktienSimulatorDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
             int result = 0;
-            if ((this._depotTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.Depot.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._depotTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._accountKreditTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.AccountKredit.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._accountKreditTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
             if ((this._kreditTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.Kredit.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
                     result = (result + this._kreditTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._depotTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.Depot.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._depotTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -5743,11 +4954,6 @@ namespace Model.AktienSimulatorDataSetTableAdapters {
                 throw new global::System.ArgumentException("Für alle von einem TableAdapterManager verwalteten Instanzen von TableAdapter mus" +
                         "s die gleiche Verbindungszeichenfolge verwendet werden.");
             }
-            if (((this._accountKreditTableAdapter != null) 
-                        && (this.MatchTableAdapterConnection(this._accountKreditTableAdapter.Connection) == false))) {
-                throw new global::System.ArgumentException("Für alle von einem TableAdapterManager verwalteten Instanzen von TableAdapter mus" +
-                        "s die gleiche Verbindungszeichenfolge verwendet werden.");
-            }
             if (((this._aktieTableAdapter != null) 
                         && (this.MatchTableAdapterConnection(this._aktieTableAdapter.Connection) == false))) {
                 throw new global::System.ArgumentException("Für alle von einem TableAdapterManager verwalteten Instanzen von TableAdapter mus" +
@@ -5809,15 +5015,6 @@ namespace Model.AktienSimulatorDataSetTableAdapters {
                     if (this._accountTableAdapter.Adapter.AcceptChangesDuringUpdate) {
                         this._accountTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
                         adaptersWithAcceptChangesDuringUpdate.Add(this._accountTableAdapter.Adapter);
-                    }
-                }
-                if ((this._accountKreditTableAdapter != null)) {
-                    revertConnections.Add(this._accountKreditTableAdapter, this._accountKreditTableAdapter.Connection);
-                    this._accountKreditTableAdapter.Connection = ((global::System.Data.OleDb.OleDbConnection)(workConnection));
-                    this._accountKreditTableAdapter.Transaction = ((global::System.Data.OleDb.OleDbTransaction)(workTransaction));
-                    if (this._accountKreditTableAdapter.Adapter.AcceptChangesDuringUpdate) {
-                        this._accountKreditTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
-                        adaptersWithAcceptChangesDuringUpdate.Add(this._accountKreditTableAdapter.Adapter);
                     }
                 }
                 if ((this._aktieTableAdapter != null)) {
@@ -5917,10 +5114,6 @@ namespace Model.AktienSimulatorDataSetTableAdapters {
                 if ((this._accountTableAdapter != null)) {
                     this._accountTableAdapter.Connection = ((global::System.Data.OleDb.OleDbConnection)(revertConnections[this._accountTableAdapter]));
                     this._accountTableAdapter.Transaction = null;
-                }
-                if ((this._accountKreditTableAdapter != null)) {
-                    this._accountKreditTableAdapter.Connection = ((global::System.Data.OleDb.OleDbConnection)(revertConnections[this._accountKreditTableAdapter]));
-                    this._accountKreditTableAdapter.Transaction = null;
                 }
                 if ((this._aktieTableAdapter != null)) {
                     this._aktieTableAdapter.Connection = ((global::System.Data.OleDb.OleDbConnection)(revertConnections[this._aktieTableAdapter]));

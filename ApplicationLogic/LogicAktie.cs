@@ -11,24 +11,13 @@ namespace ApplicationLogic
 {
     public static class LogicAktie
     {
-        public const int CHANGE_EVENT_CHANCE = 10;
-
-        public static ErrorCodes.BuyAktie BuyAktie(AktienSimulatorDataSet.AccountRow account, EnumerableRowCollection<AktienSimulatorDataSet.DepotRow> depots, AktienSimulatorDataSet.AktieRow aktie, int anzahl)
+        public static ErrorCodes.BuyAktie BuyAktie(AktienSimulatorDataSet.AccountRow account, List<AktienSimulatorDataSet.DepotRow> depots, int aktieID, int anzahl)
         {
-            var depot = depots.FirstOrDefault(x => x.Aktie == aktie.ID);
+            var depot = LogicDepot.GetDepotOrCreate(account.Nickname, depots, aktieID);
 
             var sum = depot.AktieRow.Kurs * anzahl;
             if(account.Bilanz >= sum)
             {
-                if (depot == null)
-                {
-                    var row = Database.DataSet.Depot.NewRow();
-                    row["Account"] = account;
-                    row["Aktie"] = aktie;
-                    row["Anzahl"] = 0;
-                    depot = row as AktienSimulatorDataSet.DepotRow;
-                }
-
                 depot.Anzahl += anzahl;
                 account.Bilanz -= sum;
                 return ErrorCodes.BuyAktie.NoError;
@@ -37,9 +26,10 @@ namespace ApplicationLogic
             return ErrorCodes.BuyAktie.NotEnoughMoney;
         }
 
-        public static ErrorCodes.SellAktie SellAktie(AktienSimulatorDataSet.AccountRow account, AktienSimulatorDataSet.DepotRow depot, int anzahl)
+        public static ErrorCodes.SellAktie SellAktie(AktienSimulatorDataSet.AccountRow account, List<AktienSimulatorDataSet.DepotRow> depots, int aktieID, int anzahl)
         {
-            if(depot.Anzahl >= anzahl)
+            var depot = LogicDepot.GetDepotOrCreate(account.Nickname, depots, aktieID);
+            if (depot.Anzahl >= anzahl)
             {
                 var sum = depot.AktieRow.Kurs * anzahl;
                 account.Bilanz += sum;
@@ -49,19 +39,6 @@ namespace ApplicationLogic
             }
 
             return ErrorCodes.SellAktie.NotEnoughAmount;
-        }
-
-        public static void UpdateAktien(EnumerableRowCollection<AktienSimulatorDataSet.AktieRow>  aktien)
-        {
-            foreach (var aktie in aktien)
-            {
-                Random random = new Random();
-                int i = random.Next(1, 100);
-                if(i <= CHANGE_EVENT_CHANCE)
-                {
-                    //LogicEvent.
-                }
-            }
         }
     }
 }

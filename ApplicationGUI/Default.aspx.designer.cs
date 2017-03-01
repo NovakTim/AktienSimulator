@@ -22,6 +22,15 @@ namespace AktienSimulator {
         protected global::System.Web.UI.WebControls.Panel Panel1;
         
         /// <summary>
+        /// ScriptManager1-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.ScriptManager ScriptManager1;
+        
+        /// <summary>
         /// btnSave-Steuerelement
         /// </summary>
         /// <remarks>
@@ -85,6 +94,24 @@ namespace AktienSimulator {
         protected global::System.Web.UI.WebControls.Button btnLogin;
         
         /// <summary>
+        /// textKreditHöhe-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox textKreditHöhe;
+        
+        /// <summary>
+        /// btnKreditAufnehmen-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnKreditAufnehmen;
+        
+        /// <summary>
         /// textAnzahl-Steuerelement
         /// </summary>
         /// <remarks>
@@ -92,6 +119,15 @@ namespace AktienSimulator {
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox textAnzahl;
+        
+        /// <summary>
+        /// UpdatePanel1-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
         
         /// <summary>
         /// GridView1-Steuerelement
@@ -110,5 +146,14 @@ namespace AktienSimulator {
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblBilanz;
+        
+        /// <summary>
+        /// Timer1-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.Timer Timer1;
     }
 }

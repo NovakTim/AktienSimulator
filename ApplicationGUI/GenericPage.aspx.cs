@@ -25,11 +25,11 @@ namespace AktienSimulator
             }
         }
 
-        public EnumerableRowCollection<AktienSimulatorDataSet.DepotRow> Depots
+        public List<AktienSimulatorDataSet.DepotRow> Depots
         {
             get
             {
-                return Session["Depots"] as EnumerableRowCollection<AktienSimulatorDataSet.DepotRow>;
+                return Session["Depots"] as List<AktienSimulatorDataSet.DepotRow>;
             }
             set
             {

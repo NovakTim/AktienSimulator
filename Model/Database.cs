@@ -1,6 +1,9 @@
-﻿using Model.AktienSimulatorDataSetTableAdapters;
+﻿using Contracts;
+using Model.AktienSimulatorDataSetTableAdapters;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.OleDb;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,19 +21,15 @@ namespace Model
 
             TableAdapterManager = new TableAdapterManager();
             TableAdapterManager.AccountTableAdapter = new AccountTableAdapter();
-            TableAdapterManager.AccountKreditTableAdapter = new AccountKreditTableAdapter();
             TableAdapterManager.AktieTableAdapter = new AktieTableAdapter();
             TableAdapterManager.DepotTableAdapter = new DepotTableAdapter();
             TableAdapterManager.EventTableAdapter = new EventTableAdapter();
             TableAdapterManager.KreditTableAdapter = new KreditTableAdapter();
         }
 
-        public static void CacheDataSetFull()
+        public static void CacheRelevantTables()
         {
-            TableAdapterManager.AccountTableAdapter.Fill(DataSet.Account);
-            TableAdapterManager.AccountKreditTableAdapter.Fill(DataSet.AccountKredit);
             TableAdapterManager.AktieTableAdapter.Fill(DataSet.Aktie);
-            TableAdapterManager.DepotTableAdapter.Fill(DataSet.Depot);
             TableAdapterManager.EventTableAdapter.Fill(DataSet.Event);
             TableAdapterManager.KreditTableAdapter.Fill(DataSet.Kredit);
         }
@@ -38,6 +37,57 @@ namespace Model
         public static void SaveDatabase()
         {
             TableAdapterManager.UpdateAll(DataSet);
+        }
+
+        public static AktienSimulatorDataSet.AccountRow CheckLogIn(string nickname, string password, ref ErrorCodes.Login errorcode)
+        {
+            OleDbConnection connection = new OleDbConnection(Properties.Settings.Default.AktienSimulatorConnectionString);
+            connection.Open();
+
+            //SQL Injection verhindern
+            string queryString = "SELECT * FROM Account WHERE Nickname = @Nickname";
+            OleDbCommand command = new OleDbCommand(queryString, connection);
+            command.Parameters.Add("@Nickname", OleDbType.VarChar, 255);
+            command.Parameters["@Nickname"].Value = nickname;
+
+            var reader = command.ExecuteReader(CommandBehavior.SingleRow);
+            if (reader.HasRows)
+            {
+                reader.Read();
+                AktienSimulatorDataSet.AccountRow row = DataSet.Account.NewAccountRow();
+                row.Nickname = reader["Nickname"].ToString();
+                row.Passwort = reader["Passwort"].ToString();
+                row.Bilanz = Convert.ToDecimal(reader["Bilanz"]);
+
+                if(row.Passwort == password)
+                {
+                    errorcode = ErrorCodes.Login.NoError;
+                    connection.Close();
+                    return row;
+                }
+                else
+                {
+                    errorcode = ErrorCodes.Login.WrongPassword;
+                }
+            }
+            else
+            {
+                errorcode = ErrorCodes.Login.NicknameNotFound;
+            }
+
+            connection.Close();
+            return null;
+        }
+
+        public static void FillDepots(string nickname)
+        {
+            //SQL Injection verhindern
+            string queryString = "SELECT * FROM Depot WHERE Account = @Account";
+            TableAdapterManager.DepotTableAdapter.Adapter.SelectCommand = new OleDbCommand(queryString, TableAdapterManager.DepotTableAdapter.Connection);
+            TableAdapterManager.DepotTableAdapter.Adapter.SelectCommand.Parameters.Add("@Account", OleDbType.VarChar, 255);
+            TableAdapterManager.DepotTableAdapter.Adapter.SelectCommand.Parameters["@Account"].Value = nickname;
+
+            TableAdapterManager.DepotTableAdapter.Adapter.Fill(DataSet.Depot);
         }
     }
 }
