@@ -16,11 +16,16 @@ namespace ApplicationLogic
             return Database.DataSet.Depot.Where(x => x.Account == nickname).ToList();
         }
 
-        public static AktienSimulatorDataSet.DepotRow GetDepotOrCreate(string nickname, List<AktienSimulatorDataSet.DepotRow> depots, int aktieID)
+        public static AktienSimulatorDataSet.DepotRow GetDepotOrCreate(string nickname, List<AktienSimulatorDataSet.DepotRow> depots, int aktieID, ref bool newDepotCreated)
         {
             var depot = depots.FirstOrDefault(x => x.Aktie == aktieID);
             if (depot == null)
+            {
                 depot = AddAktieToDepots(nickname, depots, aktieID);
+                newDepotCreated = true;
+            }
+            else
+                newDepotCreated = false;
 
             return depot;
         }

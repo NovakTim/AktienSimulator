@@ -101,26 +101,31 @@ namespace AktienSimulator
 
             if (e.CommandName == "Kaufen")
             {
-                var errorcode = LogicAktie.BuyAktie(Account, Depots, aktie.ID, anzahl);
+                bool newDepotCreated = false;
+                var errorcode = LogicAktie.BuyAktie(Account, Depots, aktie.ID, anzahl, ref newDepotCreated);
                 switch (errorcode)
                 {
                     case ErrorCodes.BuyAktie.NotEnoughMoney:
                         ScriptManager.RegisterClientScriptBlock(Page, Page.GetType(), "alert", "alert('Sie haben nicht genügend Geld zur Verfügung!');", true);
                         break;
                     default:
-                        UpdateDepots();
+                        if (newDepotCreated)
+                            UpdateDepots();
                         break;
                 }
             }
             else if (e.CommandName == "Verkaufen")
             {
-                var errorcode = LogicAktie.SellAktie(Account, Depots, aktie.ID, anzahl);
+                bool newDepotCreated = false;
+                var errorcode = LogicAktie.SellAktie(Account, Depots, aktie.ID, anzahl, ref newDepotCreated);
                 switch (errorcode)
                 {
                     case ErrorCodes.SellAktie.NotEnoughAmount:
                         ScriptManager.RegisterClientScriptBlock(Page, Page.GetType(), "alert", "alert('Sie besitzen nicht die gewünschte Menge zum Verkaufen!');", true);
                         break;
                     default:
+                        if (newDepotCreated)
+                            UpdateDepots();
                         break;
                 }
             }

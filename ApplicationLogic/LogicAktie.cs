@@ -11,9 +11,9 @@ namespace ApplicationLogic
 {
     public static class LogicAktie
     {
-        public static ErrorCodes.BuyAktie BuyAktie(AktienSimulatorDataSet.AccountRow account, List<AktienSimulatorDataSet.DepotRow> depots, int aktieID, int anzahl)
+        public static ErrorCodes.BuyAktie BuyAktie(AktienSimulatorDataSet.AccountRow account, List<AktienSimulatorDataSet.DepotRow> depots, int aktieID, int anzahl, ref bool newDepotCreated)
         {
-            var depot = LogicDepot.GetDepotOrCreate(account.Nickname, depots, aktieID);
+            var depot = LogicDepot.GetDepotOrCreate(account.Nickname, depots, aktieID, ref newDepotCreated);
 
             var sum = depot.AktieRow.Kurs * anzahl;
             if(account.Bilanz >= sum)
@@ -26,9 +26,9 @@ namespace ApplicationLogic
             return ErrorCodes.BuyAktie.NotEnoughMoney;
         }
 
-        public static ErrorCodes.SellAktie SellAktie(AktienSimulatorDataSet.AccountRow account, List<AktienSimulatorDataSet.DepotRow> depots, int aktieID, int anzahl)
+        public static ErrorCodes.SellAktie SellAktie(AktienSimulatorDataSet.AccountRow account, List<AktienSimulatorDataSet.DepotRow> depots, int aktieID, int anzahl, ref bool newDepotCreated)
         {
-            var depot = LogicDepot.GetDepotOrCreate(account.Nickname, depots, aktieID);
+            var depot = LogicDepot.GetDepotOrCreate(account.Nickname, depots, aktieID, ref newDepotCreated);
             if (depot.Anzahl >= anzahl)
             {
                 var sum = depot.AktieRow.Kurs * anzahl;
