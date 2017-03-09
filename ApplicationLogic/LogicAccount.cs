@@ -32,11 +32,6 @@ namespace ApplicationLogic
         {
             var account = Database.CheckLogIn(nickname, password, ref errorcode);
 
-            if(errorcode == ErrorCodes.Login.NoError)
-            {
-                Database.FillDepots(nickname);
-            }
-
             return account;
         }
     }

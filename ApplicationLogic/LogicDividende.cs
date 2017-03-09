@@ -9,7 +9,7 @@ namespace ApplicationLogic
 {
     public static class LogicDividende
     {
-        public const int PROZENTUALE_DIVIDENDE = 1;
+        public const decimal PROZENTUALE_DIVIDENDE = 0.4m;
 
         public static void UpdateDividende(AktienSimulatorDataSet.AccountRow account, List<AktienSimulatorDataSet.DepotRow> depots)
         {

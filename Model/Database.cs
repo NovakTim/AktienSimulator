@@ -31,12 +31,14 @@ namespace Model
         {
             TableAdapterManager.AktieTableAdapter.Fill(DataSet.Aktie);
             TableAdapterManager.EventTableAdapter.Fill(DataSet.Event);
+            TableAdapterManager.DepotTableAdapter.Fill(DataSet.Depot);
             TableAdapterManager.KreditTableAdapter.Fill(DataSet.Kredit);
         }
 
         public static void SaveDatabase()
         {
-            TableAdapterManager.UpdateAll(DataSet);
+            TableAdapterManager.DepotTableAdapter.Update(DataSet.Depot);
+            TableAdapterManager.KreditTableAdapter.Update(DataSet.Kredit);
         }
 
         public static AktienSimulatorDataSet.AccountRow CheckLogIn(string nickname, string password, ref ErrorCodes.Login errorcode)
