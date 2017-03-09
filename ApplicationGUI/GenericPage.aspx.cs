@@ -21,7 +21,7 @@ namespace AktienSimulator
             set
             {
                 Session["Account"] = value;
-                Depots = LogicDepot.GetDepots(value.Nickname);
+                UpdateDepots();
             }
         }
 
@@ -35,6 +35,11 @@ namespace AktienSimulator
             {
                 Session["Depots"] = value;
             }
+        }
+
+        public void UpdateDepots()
+        {
+            Depots = LogicDepot.GetDepots(Account.Nickname);
         }
 
         protected virtual void Page_Load(object sender, EventArgs e)

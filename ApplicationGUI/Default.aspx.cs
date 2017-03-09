@@ -108,6 +108,7 @@ namespace AktienSimulator
                         ScriptManager.RegisterClientScriptBlock(Page, Page.GetType(), "alert", "alert('Sie haben nicht genügend Geld zur Verfügung!');", true);
                         break;
                     default:
+                        UpdateDepots();
                         break;
                 }
             }
