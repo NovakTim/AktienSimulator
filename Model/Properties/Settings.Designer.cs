@@ -26,8 +26,8 @@ namespace Model.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=D:\\Projekt\\AktienSimulator\\Applicat" +
-            "ionGUI\\App_Data\\AktienSimulator.accdb;Persist Security Info=True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=D:\\AktienSim\\AktienSimulator\\Applic" +
+            "ationGUI\\App_Data\\AktienSimulator.accdb")]
         public string AktienSimulatorConnectionString {
             get {
                 return ((string)(this["AktienSimulatorConnectionString"]));
