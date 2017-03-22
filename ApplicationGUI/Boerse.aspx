@@ -8,6 +8,7 @@
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title></title>
+    <link href="CSS/Boerse.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <form id="form1" runat="server">
@@ -18,7 +19,7 @@
             <br />
             <asp:Button ID="btnTest" runat="server" OnClick="btnTest_Click" Text="Test" Width="87px" />
         </asp:Panel>
-        <div>
+        <div class="innerdiv">
             <table>
                 <tr>
                     <td>Account:
@@ -33,22 +34,25 @@
                 </tr>
                 <tr>
                     <td>
-                        <asp:TextBox ID="textKreditHöhe" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="textKreditHöhe" runat="server" CssClass="textfield"></asp:TextBox>
                     </td>
                     <td>
-                        <asp:Button ID="btnKreditAufnehmen" runat="server" OnClick="btnKreditAufnehmen_Click" Text="Kredit aufnehmen" />
+                        <asp:Button ID="btnKreditAufnehmen" runat="server" OnClick="btnKreditAufnehmen_Click" Text="Kredit aufnehmen" CssClass="button" />
+                        <asp:Button ID="btnRepayKredit" runat="server" OnClick="btnRepayKredit_Click" Text="Kredit zurückzahlen" CssClass="button"/>
                     </td>
                 </tr>
             </table>
 
             <br />
-            <div>
+
+            <br />
+            <div class="innerdiv">
                 Anzahl:
-                <asp:TextBox ID="textAnzahl" runat="server">1</asp:TextBox>
+                <asp:TextBox ID="textAnzahl" runat="server" CssClass="textfield">1</asp:TextBox>
 
                 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                     <ContentTemplate>
-                        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="ID" OnDataBinding="GridView1_DataBinding" OnRowCommand="GridView1_RowCommand" OnRowDataBound="GridView1_RowDataBound">
+                        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="ID" OnDataBinding="GridView1_DataBinding" OnRowCommand="GridView1_RowCommand" OnRowDataBound="GridView1_RowDataBound" CssClass="shadowTable">
                             <Columns>
                                 <asp:BoundField DataField="Bezeichnung" HeaderText="Aktie" ReadOnly="True" SortExpression="Aktie" />
                                 <asp:BoundField DataField="Kurs" DataFormatString="{0:C2}" HeaderText="Kurs" ReadOnly="True" SortExpression="Kurs" />
@@ -63,18 +67,38 @@
                                         <asp:Literal ID="litAnzahl" runat="server" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:ButtonField ButtonType="Button" CommandName="Kaufen" Text="Kaufen" />
-                                <asp:ButtonField ButtonType="Button" CommandName="Verkaufen" Text="Verkaufen" />
+                                <asp:ButtonField ButtonType="Button" CommandName="Kaufen" Text="Kaufen" ControlStyle-CssClass="button"/>
+                                <asp:ButtonField ButtonType="Button" CommandName="Verkaufen" Text="Verkaufen" ControlStyle-CssClass="button" />
                             </Columns>
                         </asp:GridView>
                         <br />
-                        Ihre Bilanz:
+                        <table>
+                            <tr>
+                                <td>
+                                    Ihre Bilanz:
+                                </td>
+                                <td>
                 <asp:Label ID="lblBilanz" runat="server" OnDataBinding="lblBilanz_DataBinding"></asp:Label>
-                        <asp:Timer ID="Timer1" runat="server" Interval="1000" OnTick="UpdateEvents">
-                        </asp:Timer>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Ihre Schulden:
+                                </td>
+                                <td>
+                        <asp:Label ID="lblSchulden" runat="server" OnDataBinding="lblSchulden_DataBinding" Text="0"></asp:Label>
+                                </td>
+                            </tr>
+                        </table>
+                        
+                        <br />
+                        <asp:Timer ID="Timer1" runat="server" Interval="1000" OnTick="TimerTick"></asp:Timer>
+                        
                     </ContentTemplate>
                 </asp:UpdatePanel>
             </div>
+            <br />
+            <br />
         </div>
     </form>
 </body>

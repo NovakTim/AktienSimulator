@@ -17,7 +17,7 @@ namespace AktienSimulator
             lblAccount.DataBind();
         }
 
-        protected void UpdateEvents(object sender, EventArgs e)
+        protected void TimerTick(object sender, EventArgs e)
         {
             var aktien = Database.DataSet.Aktie.ToList();
             LogicEvent.UpdateChangeEvent(aktien);
@@ -27,11 +27,13 @@ namespace AktienSimulator
             {
                 var depots = LogicDepot.GetDepots(Account.Nickname);
                 LogicDividende.UpdateDividende(Account, depots);
+
+                LogicKredit.UpdateKreditSchuld(Account);
             }
 
             GridView1.DataBind();
             lblBilanz.DataBind();
-
+            lblSchulden.DataBind();
         }
 
         protected void btnSave_Click(object sender, EventArgs e)
@@ -41,7 +43,7 @@ namespace AktienSimulator
 
         protected void btnTest_Click(object sender, EventArgs e)
         {
-            Response.Write("<script>alert('" + Account + "');</script>");
+            
         }
 
         protected void lblAccount_DataBinding(object sender, EventArgs e)
@@ -121,6 +123,16 @@ namespace AktienSimulator
         protected void btnKreditAufnehmen_Click(object sender, EventArgs e)
         {
             LogicKredit.KreditAufnehmen(Account, Convert.ToDecimal(textKreditHöhe.Text));
+        }
+
+        protected void lblSchulden_DataBinding(object sender, EventArgs e)
+        {
+            lblSchulden.Text = LogicKredit.GetGesamtSchuld(Account.Nickname).ToString("0,0.00");
+        }
+
+        protected void btnRepayKredit_Click(object sender, EventArgs e)
+        {
+            LogicKredit.RepayKredit(Account, Convert.ToDecimal(textKreditHöhe.Text));
         }
     }
 }

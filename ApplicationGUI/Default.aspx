@@ -6,33 +6,44 @@
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title></title>
+    <link href="CSS/Boerse.css" rel="stylesheet" />
+    <style type="text/css">
+        .auto-style1 {
+            height: 30px;
+        }
+    </style>
+
 </head>
 <body>
     <form id="form1" runat="server">
-        <table>
+        <div class="outerdiv">
+<table>
             <tr>
                 <td>Nickname:
                 </td>
                 <td>
-                    <asp:TextBox ID="textNickname" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="textNickname" runat="server" CssClass="textfield"></asp:TextBox>
                 </td>
             </tr>
             <tr>
                 <td>Passwort:
                 </td>
                 <td>
-                    <asp:TextBox ID="textPassword" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="textPassword" runat="server" CssClass="textfield"></asp:TextBox>
                 </td>
             </tr>
             <tr>
-                <td>
-                    <asp:Button ID="btnRegistrieren" runat="server" OnClick="btnRegistrieren_Click" Text="Registrieren" />
+                <td class="auto-style1">
+                    <asp:Button ID="btnRegistrieren" runat="server" OnClick="btnRegistrieren_Click" Text="Registrieren" CssClass="button" />
                 </td>
-                <td>
-                    <asp:Button ID="btnLogin" runat="server" OnClick="btnLogin_Click" Text="Login" />
+                <td class="auto-style1">
+                    <asp:Button ID="btnLogin" runat="server" OnClick="btnLogin_Click" Text="Login" CssClass="button" />
                 </td>
             </tr>
         </table>
+        </div>
+       
+        
     </form>
 </body>
 </html>

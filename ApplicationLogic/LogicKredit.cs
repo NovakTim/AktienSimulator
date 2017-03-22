@@ -9,7 +9,7 @@ namespace ApplicationLogic
 {
     public static class LogicKredit
     {
-        public const decimal PROZENTUALE_ZINSEN = 0.005m;
+        public const decimal PROZENTUALE_ZINSEN = 0.001m;
 
         public static void KreditAufnehmen(AktienSimulatorDataSet.AccountRow account, decimal amount)
         {
@@ -31,7 +31,7 @@ namespace ApplicationLogic
             var kredite = GetKredite(account.Nickname);
             foreach (var kredit in kredite)
             {
-                kredit.Rest *= PROZENTUALE_ZINSEN;
+                kredit.Rest *= 1 + PROZENTUALE_ZINSEN;
             }
         }
 
